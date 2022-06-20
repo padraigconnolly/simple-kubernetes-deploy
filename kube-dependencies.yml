@@ -19,6 +19,31 @@
        state: present
        update_cache: true
 
+   - name: create containerd directory
+     file:
+       path: /etc/containerd
+       state: directory
+
+   - name: get default containerd config
+     command: containerd config default
+     register: containerd_default_config
+
+   - name: set default containerd config
+     copy:
+       content: "{{ containerd_default_config.stdout }}"
+       dest: /etc/containerd/config.toml
+
+   - name: change containerd to use systemdcgroup
+     replace:
+       path: /etc/containerd/config.toml
+       regexp: 'SystemdCgroup = false'
+       replace: 'SystemdCgroup = true'
+
+   - name: restart containerd
+     systemd:
+       name: containerd
+       state: restarted
+
    - name: install APT Transport HTTPS
      apt:
        name: apt-transport-https
@@ -37,13 +62,13 @@
 
    - name: install kubelet
      apt:
-       name: kubelet=1.22.4-00
+       name: kubelet=1.24.0-00
        state: present
        update_cache: true
 
    - name: install kubeadm
      apt:
-       name: kubeadm=1.22.4-00
+       name: kubeadm=1.24.0-00
        state: present
 
 - hosts: control_plane
@@ -51,6 +76,6 @@
   tasks:
    - name: install kubectl
      apt:
-       name: kubectl=1.22.4-00
+       name: kubectl=1.24.0-00
        state: present
        force: yes

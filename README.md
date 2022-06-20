@@ -46,9 +46,9 @@ Assuming no errors, now run the `kube-dependencies.yml` playbook to install dock
 ```bash
 ansible-playbook -i hosts kube-dependencies.yml
 ```
-> Currently the version statically set to `1.22.4` to make sure you are using the same version that I have tested.
+> Currently the version statically set to `1.24` to make sure you are using the same version that I have tested.
 
-After this run the the `control-plane.yml` playbook to initialise the Kubernetes cluster and install the Flannel K8s network fabric:
+After this run the `control-plane.yml` playbook to initialise the Kubernetes cluster and install the Flannel K8s network fabric:
 ```bash
 ansible-playbook -i hosts control-plane.yml
 ```
@@ -83,9 +83,10 @@ If you like to add or change some of the code in this repo feel free to open a p
 
 ## Tested On
 
-| Operating System | Virtual Machine | Bare Metal | CPU Architecture |
-|------------------|-----------------|------------|------------------|
-| Ubuntu 20.04     | Yes             | No         | x86              |
+| Operating System | Virtual Machine | Bare Metal | CPU Architecture | Kubernetes Version |
+|------------------|-----------------|------------|------------------|--------------------|
+| Ubuntu 20.04     | Yes             | No         | x86              | 1.22               |
+| Ubuntu 22.04     | Yes             | No         | x86              | 1.24
 
 
 ## To-Do
