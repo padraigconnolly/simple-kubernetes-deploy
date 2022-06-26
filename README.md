@@ -35,27 +35,16 @@ There are three requirements to get started, make sure:
     
     ssh-import-id-gh <github-username>
     ```
-### Run the Ansible Playbooks
 
-Start off by running the `initial.yml` playbook that sets each node up ready to install Kubernetes:
-```bash
-ansible-playbook -i hosts initial.yml
-```
+### hosts file
 
-Assuming no errors, now run the `kube-dependencies.yml` playbook to install docker, kubelet, kubectl (Control Plane only) and kubeadm:
-```bash
-ansible-playbook -i hosts kube-dependencies.yml
-```
-> Currently the version statically set to `1.24` to make sure you are using the same version that I have tested.
+Add details about all the nodes you will deploy K8s on in the `hosts` file
 
-After this run the `control-plane.yml` playbook to initialise the Kubernetes cluster and install the Flannel K8s network fabric:
-```bash
-ansible-playbook -i hosts control-plane.yml
-```
+### Run the Ansible Playbook
 
-Finally run the `workers.yml` playbook to join the worker nodes to the cluster:
+To deploy the Playbook, simply run the following command:
 ```bash
-ansible-playbook -i hosts workers.yml
+ansible-playbook -i hosts k8s-deploy.yml
 ```
 
 Assuming no errors came up, congratulations, you've deployed a Kubernetes Cluster!! :tada: :tada:
@@ -94,7 +83,6 @@ If you like to add or change some of the code in this repo feel free to open a p
 - Test on Raspberry Pi
 - Test on RHEL Distro
 - Add Group Vars configuration file
-- Add one playbook to run each indiviadual playbook (Currently each one has to be run manually)
 - Test on Ubuntu Bare Metal
 
 ## License

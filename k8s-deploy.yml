@@ -1,0 +1,8 @@
+- name: set up each node to deploy Kubernetes
+  import_playbook: initial.yml
+- name: install all the dependencies for Kubernetes
+  import_playbook: kube-dependencies.yml
+- name: deploy control-plane node
+  import_playbook: control-plane.yml
+- name: deploy worker nodes
+  import_playbook: workers.yml
